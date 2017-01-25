@@ -5,7 +5,7 @@ Our goals:
 
 1. Make an account adding, deleting and editing function set. 
 
-2. Make an accounts database.
+2. Make an accounts database. (Kelly)
 
 3. Login function. 
 
@@ -17,4 +17,4 @@ Our goals:
 
 7. Managers account who can view when booking are meant to be .
 
-8. Employer list.
+8. Employer list. (Kelly)
