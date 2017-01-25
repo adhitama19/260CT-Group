@@ -2,6 +2,7 @@
 260CT Software Engineering group project
 
 Our goals: 
+
 1. Make an account adding, deleting and editing function set. 
 
 2. Make an accounts database.
