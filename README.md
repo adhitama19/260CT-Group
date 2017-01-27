@@ -3,7 +3,7 @@
 
 Our goals: 
 
-1. Make an account adding, deleting and editing function set. 
+1. Make an account adding, deleting and editing function set. (Martin)
 
 2. Make an accounts database. (Kelly)
 
