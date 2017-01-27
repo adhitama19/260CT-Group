@@ -19,6 +19,7 @@ Our goals:
 
 8. Employer list. (Kelly)
 
+========================================================================================================================================
 Tasks:
 
 Booking
@@ -52,3 +53,4 @@ Manager
 -	Manager can also make additions and changes to the list of instructors employed by the company
 New features
 -	Come up with ideas and we vote which ideas should be implemented 
+========================================================================================================================================
