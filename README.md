@@ -41,16 +41,20 @@ Payment/prices
 -	Customer pays different fee for each standard session or training session
 -	Customer that are loyalty members get lower rates for standard session or training session
 -	System does not handle these payments, but needs to know what the payment should be.
+
 Session operator
 -	Slope operator should be able to uses system to perform the check in
 -	Slope operator can enter the skiers ID and system displays details of the users and any matching booking (including the charge to be made).
 -	Slope operator then confirms whether this is the correct booking
+
 Session instructor
 -	Ski instructor can get list of people to be expected in their booked sessions
+
 Manager
 -	Manager can add and delete sessions
 -	Details of sessions may include whether an instructor is booked and the list of users have been booked in
 -	Manager can also make additions and changes to the list of instructors employed by the company
+
 New features
 -	Come up with ideas and we vote which ideas should be implemented 
 ========================================================================================================================================
