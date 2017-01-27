@@ -38,6 +38,7 @@ Functionalities
 -	Customer pays different fee for each standard session or training session
 -	Customer that are loyalty members get lower rates for standard session or training session
 -	System does not handle these payments, but needs to know what the payment should be
+
 4.Manager:
 -	Manager can add and delete sessions
 -	Include details of the sessions and may include whether an instructor is booked and the list of users have booked in.
