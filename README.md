@@ -7,9 +7,9 @@ Our goals:
 
 2. Make an accounts database. (Kelly)
 
-3. Login function. 
+3. Login function. (salah)
 
-4. Book sessions, either solo or instructed. 
+4. Book sessions, either solo or instructed. (salah)
 
 5. Set up a system to bill user when they upgrade to premium or book a session. 
 
