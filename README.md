@@ -11,7 +11,7 @@ Our goals:
 
 4. Book sessions, either solo or instructed. (salah)
 
-5. Set up a system to bill user when they upgrade to premium or book a session. 
+5. Set up a system to bill user when they upgrade to premium or book a session. (Adhitama)
 
 6. Set up system to make prices lower for upgraded members.
 
@@ -34,7 +34,8 @@ Functionalities
 -	Custom
 -	Customer wishes to join as a member the membership fee is required
 -	Customer with basic member ship can be upgrades to the loyalty if customer has 10 or more sessions.
-3.Payment calculating
+
+3.Payment calculating: (Adhitama)
 -	Customer pays different fee for each standard session or training session
 -	Customer that are loyalty members get lower rates for standard session or training session
 -	System does not handle these payments, but needs to know what the payment should be
