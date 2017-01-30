@@ -28,13 +28,13 @@ Functionalities
 -	Slope operator then confirms whether this is the correct booking
 -	Session instructor
 
-6.Ski instructor
+6.Ski instructor (Sam) 
 -	Ski instructor can get list of people to be expected in their booked sessions
 
-7.Creating database (sam)
+7.Creating database (Done)
 -setting up database
 
-8.new feature
+8.new feature (???) 
 creating a new feature
 
 
