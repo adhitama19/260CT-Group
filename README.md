@@ -1,26 +1,6 @@
 # 260CT-Group
 260CT Software Engineering group project
 
-Our goals: 
-
-1. Make an account adding, deleting and editing function set. (Martin)
-
-2. Make an accounts database. (Kelly)
-
-3. Login function. (salah)
-
-4. Book sessions, either solo or instructed. (salah)
-
-5. Set up a system to bill user when they upgrade to premium or book a session. (Adhitama)
-
-6. Set up system to make prices lower for upgraded members.
-
-7. Managers account who can view when booking are meant to be .
-
-8. Employer list. (Kelly)
---------------------------------------------------------------------------------------------------------------------------------------
-======================================================================================================================================
-
 Functionalities 
 
 1.Employee login (reece)
@@ -53,8 +33,29 @@ Functionalities
 6.Ski instructor
 -	Ski instructor can get list of people to be expected in their booked sessions
 
-6. New feature
+7.new feature
 creating a new feature
+
+--------------------------------------------------------------------------------------------------------------------------------------
+======================================================================================================================================
+
+Our goals: 
+
+1. Make an account adding, deleting and editing function set. (Martin)
+
+2. Make an accounts database. (Kelly)
+
+3. Login function. (salah)
+
+4. Book sessions, either solo or instructed. (salah)
+
+5. Set up a system to bill user when they upgrade to premium or book a session. (Adhitama)
+
+6. Set up system to make prices lower for upgraded members.
+
+7. Managers account who can view when booking are meant to be .
+
+8. Employer list. (Kelly)
 
 
 
