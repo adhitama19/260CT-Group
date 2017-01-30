@@ -16,26 +16,21 @@ Functionalities
 -	Customer that are loyalty members get lower rates for standard session or training session
 -	System does not handle these payments, but needs to know what the payment should be
 
-
-4.Manager: (martin)
--	Manager can add and delete sessions
--	Include details of the sessions and may include whether an instructor is booked and the list of users have booked in.
--	Make additions and changes to the list of instructors employed by the company
-
-5.Session operator (chris)
+4.Session operator (chris)
 -	Slope operator should be able to uses system to perform the check in
 -	Slope operator can enter the skiers ID and system displays details of the users and any matching booking (including the charge to be made).
 -	Slope operator then confirms whether this is the correct booking
 -	Session instructor
 
-6.Ski instructor (Sam) 
+5.Ski instructor (Sam) 
 -	Ski instructor can get list of people to be expected in their booked sessions
 
-7.Creating database (Done)
--setting up database
+6.manager Updating (adhitama) 
 
-8.new feature (???) 
-creating a new feature
+7.manager deleting (reece)
+
+8.manager adding (martin)
+
 
 ========================================================================================================================================
 Tasks:
