@@ -3,21 +3,19 @@
 
 Functionalities 
 
-1.Employee login (reece)
--	Manger
--	Ski Instructor
--	Slope operatore
+1.Login  (reece)
 
-2.Booking (salah)
--	Registration GUI to register new customer
+2.Registration  (adhitama) 
+-	Register new user
+
+3.Booking   (salah)
 -	Booking GUI
 -	Customer wishes to join as a member the membership fee is required
--	Customer with basic member ship can be upgrades to the loyalty if customer has 10 or more sessions.
-
-3.Payment calculating: (Adhitama)
+-	Customer with basic member ship can be upgrades to the loyalty if customer has 10 or more
 -	Customer pays different fee for each standard session or training session
 -	Customer that are loyalty members get lower rates for standard session or training session
 -	System does not handle these payments, but needs to know what the payment should be
+
 
 4.Manager: (martin)
 -	Manager can add and delete sessions
