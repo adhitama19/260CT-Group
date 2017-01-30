@@ -23,7 +23,7 @@ Our goals:
 
 Functionalities 
 
-1.Employee login 
+1.Employee login (reece)
 -	Manger
 -	Ski Instructor
 -	Slope operatore
@@ -31,7 +31,6 @@ Functionalities
 2.Booking (salah)
 -	Registration GUI to register new customer
 -	Booking GUI
--	Custom
 -	Customer wishes to join as a member the membership fee is required
 -	Customer with basic member ship can be upgrades to the loyalty if customer has 10 or more sessions.
 
@@ -40,7 +39,7 @@ Functionalities
 -	Customer that are loyalty members get lower rates for standard session or training session
 -	System does not handle these payments, but needs to know what the payment should be
 
-4.Manager:
+4.Manager: (martin)
 -	Manager can add and delete sessions
 -	Include details of the sessions and may include whether an instructor is booked and the list of users have booked in.
 -	Make additions and changes to the list of instructors employed by the company
@@ -53,6 +52,10 @@ Functionalities
 
 6.Ski instructor
 -	Ski instructor can get list of people to be expected in their booked sessions
+
+6. New feature
+creating a new feature
+
 
 
 ========================================================================================================================================
