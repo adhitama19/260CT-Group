@@ -24,7 +24,7 @@ Functionalities
 -	Include details of the sessions and may include whether an instructor is booked and the list of users have booked in.
 -	Make additions and changes to the list of instructors employed by the company
 
-5.Session operator
+5.Session operator (chris)
 -	Slope operator should be able to uses system to perform the check in
 -	Slope operator can enter the skiers ID and system displays details of the users and any matching booking (including the charge to be made).
 -	Slope operator then confirms whether this is the correct booking
