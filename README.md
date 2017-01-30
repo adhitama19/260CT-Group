@@ -33,8 +33,12 @@ Functionalities
 6.Ski instructor
 -	Ski instructor can get list of people to be expected in their booked sessions
 
-7.new feature
+7.Creating database (sam)
+-setting up database
+
+8.new feature
 creating a new feature
+
 
 --------------------------------------------------------------------------------------------------------------------------------------
 ======================================================================================================================================
