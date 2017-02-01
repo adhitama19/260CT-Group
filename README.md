@@ -17,8 +17,7 @@ Functionalities
 -	System does not handle these payments, but needs to know what the payment should be
 
 4.Session operator (chris)
--	Slope operator should be able to uses system to perform the check in
--	Slope operator can enter the skiers ID and system displays details of the users and any matching booking (including the charge to be made).
+-	Slope operator enters the skiers ID and system displays details of the users and any matching booking (including the charge to be made).
 -	Slope operator then confirms whether this is the correct booking
 -	Session instructor
 
