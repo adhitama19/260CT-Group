@@ -3,7 +3,7 @@
 
 Functionalities 
 
-1.Login  (reece)
+1.Login 
 
 2.Registration  (adhitama) 
 -	Register new user
