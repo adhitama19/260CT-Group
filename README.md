@@ -3,7 +3,7 @@
 
 Functionalities 
 
-1.Login 
+1.Login (if anyone has the time to do it)
 
 2.Registration  (adhitama) 
 -	Register new user
