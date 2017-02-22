@@ -30,7 +30,7 @@ Functionalities
 
 8.manager adding (martin)
 
-9. Ski Slope (Kelly) No Gui, Text version done 
+9.Ski Slope (Kelly) No Gui, Text version done 
 - Slope operator can retrive all people expected to be on the slope on a given day
 
 ========================================================================================================================================
