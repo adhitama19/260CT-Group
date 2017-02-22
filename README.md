@@ -26,7 +26,7 @@ Functionalities
 
 6.manager Updating (adhitama) 
 
-7.manager deleting (reece)
+7.manager deleting (reece) DONE!!!
 
 8.manager adding (martin)
 
