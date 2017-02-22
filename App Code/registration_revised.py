@@ -85,6 +85,7 @@ class App():
     def openDb(self):
         self.conn = sqlite3.connect('Database.db')
         self.cur = self.conn.cursor()
+        print('Database Opened Successfully')
 
     def insertDb(self):
         
@@ -105,6 +106,7 @@ VALUES (?, ?, ?, ?, ? ,?, ?, ?)", (id1, foreName1, surName1, doBirth1, customerE
 
     def closeDB(self):
         self.conn.close()
+        print("Database is now Closed")
 
         
 
@@ -114,7 +116,7 @@ VALUES (?, ?, ?, ?, ? ,?, ?, ?)", (id1, foreName1, surName1, doBirth1, customerE
     
 root = tkinter.Tk()
 root.title("Sphere Registration Table")
-root.geometry('500x300')
+root.geometry('700x400')
 
 app = App(root)
 root.mainloop()
