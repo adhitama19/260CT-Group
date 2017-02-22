@@ -21,7 +21,7 @@ Functionalities
 -	Slope operator then confirms whether this is the correct booking
 -	Session instructor
 
-5.Ski instructor (Sam) 
+5.Ski instructor (Kelly) 
 -	Ski instructor can get list of people to be expected in their booked sessions
 
 6.manager Updating (adhitama) 
@@ -30,6 +30,8 @@ Functionalities
 
 8.manager adding (martin)
 
+9. Ski Slope (Kelly) No Gui, Text version done 
+- Slope operator can retrive all people expected to be on the slope on a given day
 
 ========================================================================================================================================
 Tasks:
