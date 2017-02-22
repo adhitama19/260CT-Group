@@ -21,7 +21,7 @@ Functionalities
 -	Slope operator then confirms whether this is the correct booking
 -	Session instructor
 
-5.Ski instructor (Kelly) 
+5.Ski instructor (Kelly) No Gui, Text version done
 -	Ski instructor can get list of people to be expected in their booked sessions
 
 6.manager Updating (adhitama) 
