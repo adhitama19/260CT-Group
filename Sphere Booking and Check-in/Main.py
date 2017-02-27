@@ -8,6 +8,7 @@ Python 3
 from tkinter import *
 import sqlite3
 from removecustomer import *
+from registration import *
 
 class Login():
 
@@ -62,7 +63,7 @@ class Home():
 
         self.label1=Label(self.master,text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25))
 
-        self.button1=Button(self.master,text="Register new customer",fg="black", width=20, height=3,font=("Helvetica",15, "bold italic"))
+        self.button1=Button(self.master,text="Register new customer",fg="black", width=20, command=self.register, height=3,font=("Helvetica",15, "bold italic"))
         self.button2=Button(self.master,text="Upgrade member",fg="black", width=20, command=self.updateMember, height=3,font=("Helvetica",15, "bold italic"))
         self.button3=Button(self.master,text="Register member",fg="black", width=20, command=self.regMember, height=3,font=("Helvetica",15, "bold italic"))
         self.button4=Button(self.master,text="Make new booking",fg="black", width=20, command=self.gotoBooking, height=3,font=("Helvetica",15, "bold italic"))
@@ -101,6 +102,11 @@ class Home():
         root6=Toplevel(self.master)
         self.master.withdraw()
         adminlogin=adminLogin(root6,self.master)
+
+    def register(self):
+        
+        self.master.withdraw()
+        run()
         
     # Each function will execute the command to go to that specific window
 
