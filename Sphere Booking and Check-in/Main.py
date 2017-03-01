@@ -13,6 +13,8 @@ import sys
 from removecustomer import *
 from registration import *
 from ManagerUpdating import *
+from SkiInstructorTimetable import *
+from SkiSlopeTimetable import *
 
 
 class Home():
@@ -30,7 +32,7 @@ class Home():
         self.button3=Button(self.master,text="Register member",fg="black", width=20, command=self.regMember, height=3,font=("Helvetica",15, "bold italic"))
         self.button4=Button(self.master,text="Make new booking",fg="black", width=20, command=self.gotoBooking, height=3,font=("Helvetica",15, "bold italic"))
         self.button5=Button(self.master,text="Check booking",fg="black", width=20, height=3,font=("Helvetica",15, "bold italic"))
-        self.button6=Button(self.master,text="time table",fg="black", width=20, height=3,font=("Helvetica",15, "bold italic"))
+        self.button6=Button(self.master,text="time table",fg="black", width=20,command=self.table, height=3,font=("Helvetica",15, "bold italic"))
         self.button7=Button(self.master,text="Admin",fg="black", width=20, command=self.admin, height=3,font=("Helvetica",15, "bold italic"))
         # Each button links to our individual function
         
@@ -77,8 +79,81 @@ class Home():
         
         self.master.withdraw()
         run()
+
+    def table(self):
+
+        root7=Toplevel(self.master)
+        self.master.withdraw()
+        timetable=timeTable(root7,self.master)
+        
         
     # Each function will execute the command to go to that specific window
+
+
+class timeTable():
+
+    def __init__(self,master,mainwnd):
+
+        self.mainwnd= mainwnd # store the 'self.master` of the main window
+        self.master = master
+
+        self.master.geometry("1080x800+200+200") # size of the window
+        self.master.title("Sphere Booking and Check-in")
+        
+        self.master.date = StringVar()
+        self.master.ID = StringVar()
+
+        self.label1=Label(self.master,text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25))
+        
+        self.label2=Label(self.master,text="date:",fg="black", font=("Helvetica",12, "bold italic"))
+        self.label3=Label(self.master,text="Staff ID:",fg="black", font=("Helvetica",12, "bold italic"))
+
+        self.input1=Entry(self.master, textvariable=self.master.date)
+        self.input2=Entry(self.master, textvariable=self.master.ID)
+
+        self.button1=Button(self.master,text="Slope",fg="black",width=10, height=1,command=self.slopeOp)
+        self.button2=Button(self.master,text="instructor",fg="black",width=10, height=1,command=self.instruct)
+        self.button3=Button(self.master,text="Home",fg="black",width=10, height=1,command=self.home)
+
+        self.label1.pack(side="top",padx=15,pady=15)
+        
+        self.label2.pack(side="top",padx=15,pady=15)
+        self.input1.pack(side="top",padx=15,pady=15)
+
+        self.label3.pack(side="top",padx=15,pady=15)
+        self.input2.pack(side="top",padx=15,pady=15)
+        
+        self.button1.pack(side="top", padx=15,pady=15)
+        self.button2.pack(side="top", padx=15,pady=15)
+        self.button3.pack(side="top", padx=15,pady=15)
+        
+        
+    def home(self):
+        
+        root2=Toplevel(self.master)
+        self.master.withdraw() # windows becomes invisible
+        myGUI=Home(root2)
+
+    def slopeOp(self):
+
+        self.master.withdraw()
+        date = self.input1.get()
+        runSlope= Maketimetable(date)
+        printTimeTable(runSlope)
+
+    def instruct(self):
+
+        self.master.withdraw()
+        date = self.input1.get()
+        iid = self.input2.get()
+        runInstruct = MaketimetableI(date,iid)
+        printTimeTable(runInstruct)
+        
+        
+        
+        
+
+
 
 
 class adminLogin():
