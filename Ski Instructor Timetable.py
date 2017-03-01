@@ -57,9 +57,20 @@ def MaketimetableI(date, instructor):
     sixpm= c.fetchone()
     sixpm= str(sixpm) 
     
-    result=("8am:"+ eightam+ "\n"+ "10am:"+ tenam+ "\n"+ "12pm:"+ twelvepm+ "\n"+ "2pm:"+ twopm+ "\n"+ "4pm:"+ fourpm+ "\n"+ "6pm:"+ sixpm+ "\n") #turn result into one paragraph string
+    result=("8am:"+ eightam+ "\n"+ "10am:"+ tenam+ "\n"+ "12pm:"+ twelvepm+ "\n"+ "2pm:"+ twopm+ "\n"+ "4pm:"+ fourpm+ "\n"+ "6pm:"+ sixpm) #turn result into one paragraph string
     return(result)
 
+def printTimeTable(infile):
+    """takes a timetable output, and turns it into a graphical interface item"""
+    import tkinter as tk #Savers new call to the module requiring full name
+    window = tk.Tk() #makes the window
+    window.resizable (0, 0) #disables resizing
+    text= tk.Label(window, text= infile, justify= tk.LEFT, font=("Calibri", 12)) #makes text
+    text.pack() #puts text in the window 
+    window.mainloop() #runs the window 
+
+    
 if __name__ == "__main__": #stops testing happening when executed elsewhere
-    Test= MaketimetableI("1/1/2018", "4") 
-    print(Test) 
+    Test= MaketimetableI("1/1/2018", "4")
+    Test2= printTimeTable(Test)
+
