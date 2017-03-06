@@ -5,7 +5,7 @@ Functionalities
 
 1.Login (if anyone has the time to do it)
 
-2.Registration  (adhitama) 
+2.Registration  (adhitama) Done
 -	Register new user
 
 3.Booking   (salah)
@@ -24,7 +24,7 @@ Functionalities
 5.Ski instructor (Kelly) Done
 -	Ski instructor can get list of people to be expected in their booked sessions
 
-6.manager Updating (adhitama) 
+6.manager Updating (adhitama) Done
 
 7.manager deleting (reece) DONE!!!
 
