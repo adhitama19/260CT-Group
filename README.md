@@ -28,7 +28,7 @@ Functionalities
 
 7.manager deleting (reece) DONE!!!
 
-8.manager adding (martin)
+8.manager adding (martin) Done
 
 9.Ski Slope (Kelly) Done 
 - Slope operator can retrive all people expected to be on the slope on a given day
