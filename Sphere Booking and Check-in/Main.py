@@ -479,10 +479,10 @@ class Booking():
         sessionNumber = self.sessionNum
 
         self.c.execute("INSERT INTO Booking (Ref_number, customerID, session, date, time, checking, price) VALUES(?, ?, ?, ?, ?, ?, ?)",
-                       (refNum, customerID, session, date, time, checking, price))
-        self.c.execute("INSERT INTO Customer_details (number_of_session) VALUES (?)",
-                       (sessionNumber))
-                           
+                       (refNum, customerID, session, date, time, checking, price))                     
+        
+        self.c.execute("UPDATE Customer_details SET number_of_session = (?) WHERE ID = (?) ",
+                       (sessionNumber, customerID))
         self.conn.commit()
         
         self.closeDB()
@@ -520,6 +520,8 @@ class Booking():
                 discount = (normal + instructor * 20) / 100
                 self.price = normal + instructor - discount
 
+        print(self.price)
+
         self.id_generator()
         
             
@@ -534,17 +536,17 @@ class Booking():
         self.ID = self.c.fetchone()
         self.customer = str(self.ID[0])
 
-        self.c.execute("SELECT number_of_session FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+        self.c.execute("SELECT number_of_session FROM Customer_Details WHERE FORENAME = (?) AND SURNAME = (?) AND DOB = (?)",
                        (firstName, surname, dob))
 
         session = self.c.fetchone()
-        self.sessionNum = int(self.ID[0])
+        self.sessionNum = int(session[0])
         self.sessionNum +=1
+        print(self.sessionNum)
         
         self.calculate()  
     
-        
-         
+             
 def main():
     
     root=Tk()
