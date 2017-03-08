@@ -10,11 +10,14 @@ import sqlite3
 import string
 import random
 import sys
+from random import randint
+
 from removecustomer import *
 from registration import *
 from ManagerUpdating import *
 from SkiInstructorTimetable import *
 from SkiSlopeTimetable import *
+from managerAdding import *
 
 
 class Home():
@@ -97,7 +100,7 @@ class timeTable():
         self.mainwnd= mainwnd # store the 'self.master` of the main window
         self.master = master
 
-        self.master.geometry("1080x800+200+200") # size of the window
+        self.master.geometry("600x500+200+200") # size of the window
         self.master.title("Sphere Booking and Check-in")
         
         self.master.date = StringVar()
@@ -149,12 +152,6 @@ class timeTable():
         runInstruct = MaketimetableI(date,iid)
         printTimeTable(runInstruct)
         
-        
-        
-        
-
-
-
 
 class adminLogin():
 
@@ -205,7 +202,6 @@ class adminLogin():
         admin=Admin(root3,self.master)
 
 
-
 class Admin():
 
     def __init__(self,master,mainwnd):
@@ -231,9 +227,8 @@ class Admin():
 
     def Add(self):
 
-        root3=Toplevel(self.master)
         self.master.withdraw()
-        booking=Booking(root3,self.master)
+        ManagerAdd()
         
     def Delete(self):
         
@@ -245,7 +240,6 @@ class Admin():
         self.master.withdraw()
         runUpdate()
         
-
     def home(self):
         
         root2=Toplevel(self.master)
@@ -281,7 +275,6 @@ class updateMember():
         self.e4 = Entry(self.master)
         self.e5 = Entry(self.master)
 
-
         self.e1.grid(row=2, column=1)
         self.e2.grid(row=4, column=1)
         self.e3.grid(row=6, column=1)
@@ -308,47 +301,75 @@ class regMember():
         self.master.geometry("1080x800+200+200")
         self.master.title("Sphere Booking and Check-in")
 
+        self.conn = sqlite3.connect('Database.db')
+        self.c = self.conn.cursor()
+
         Label(self.master, text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25)).grid(row=0,column=2)
         Label(self.master, text="    ").grid(row=1)
-        Label(self.master, text="Customer ID").grid(row=2)
+        Label(self.master, text="First Name").grid(row=2)
         Label(self.master, text="    ").grid(row=3)
-        Label(self.master, text="First Name").grid(row=4)
+        Label(self.master, text="Surname").grid(row=4)
         Label(self.master, text="    ").grid(row=5)
-        Label(self.master, text="Surname").grid(row=6)
+        Label(self.master, text="Date of birth").grid(row=6)
         Label(self.master, text="    ").grid(row=7)
-        Label(self.master, text="Date of birth").grid(row=8)
-        Label(self.master, text="    ").grid(row=9)
-        Label(self.master, text="Phone number").grid(row=10)
-        Label(self.master, text="    ").grid(row=1)
         Label(self.master, text="Date").grid(row=2,column=2)
         Label(self.master, text="    ").grid(row=3)
-        Label(self.master, text="Time").grid(row=4 ,column=2)
 
-        self.e1 = Entry(self.master)
-        self.e2 = Entry(self.master)
-        self.e3 = Entry(self.master)
-        self.e4 = Entry(self.master)
-        self.e5 = Entry(self.master)
-        self.e6 = Entry(self.master)
-        self.e7 = Entry(self.master)
+        self.MFname = Entry(self.master)
+        self.MSname = Entry(self.master)
+        self.Mdob = Entry(self.master)
+        self.Mdate = Entry(self.master)
 
+        self.MFname.grid(row=2, column=1)
+        self.MSname.grid(row=4, column=1)
+        self.Mdob.grid(row=6, column=1)
+        self.Mdate.grid(row=2, column=3)
 
-        self.e1.grid(row=2, column=1)
-        self.e2.grid(row=4, column=1)
-        self.e3.grid(row=6, column=1)
-        self.e4.grid(row=8, column=1)
-        self.e5.grid(row=10, column=1)
-        self.e6.grid(row=2, column=3)
-        self.e7.grid(row=4, column=3)
-
-
-        Button(self.master, text='Create membership',font=("Helvetica",15, "bold italic")).grid(row=11, column=4, sticky=W, pady=4)
+        Button(self.master, text='Create membership', command=self.checkValue, font=("Helvetica",15, "bold italic")).grid(row=11, column=4, sticky=W, pady=4)
         Button(self.master, text='Home', command=self.goHome, font=("Helvetica",15, "bold italic")).grid(row=12, column=4, sticky=W, pady=4)
 
     def goHome(self):
         self.master.destroy() # close the current Member window
         self.mainwnd.update() # update the home window
         self.mainwnd.deiconify() # un-minimize the home window
+
+    def closeDB(self):
+        self.c.close()
+        self.conn.close() 
+        
+    def insertMember(self):
+        customerID = int(self.customerID)
+        date = self.Mdate.get()
+        membershipType = "standard"
+        membership = self.memID  
+        
+        self.c.execute("INSERT INTO Member ( Membership_ID, Customer_ID, Membership_Type, Join_Date) VALUES (?, ?, ?, ?)",
+                       (membership, customerID, membershipType, date,))
+        self.conn.commit()
+
+        self.closeDB()
+        
+    def randomMemberID(self):
+        range_start = 10**(10-1)
+        range_end = (10**10)-1
+        self.memID = randint(range_start, range_end)
+        
+        self.insertMember()
+        
+    def checkValue(self):
+
+        firstName = self.MFname.get()
+        surname = self.MSname.get()
+        dob = self.Mdob.get()
+        
+        self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+                       (firstName, surname, dob))
+        self.ID = self.c.fetchone()
+        
+        self.customerID = self.ID[0]
+        
+        self.randomMemberID()  
+    
 
  
 class Booking():
@@ -361,70 +382,124 @@ class Booking():
         self.master.geometry("1080x800+200+200")
         self.master.title("Sphere Booking and Check-in")
 
+        self.conn = sqlite3.connect('Database.db')
+        self.c = self.conn.cursor()
+
         Label(self.master, text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25)).grid(row=0,column=2)
         Label(self.master, text="    ").grid(row=1)
-        Label(self.master, text="Customer ID").grid(row=2)
+        Label(self.master, text="First Name").grid(row=2)
         Label(self.master, text="    ").grid(row=3)
-        Label(self.master, text="First Name").grid(row=4)
+        Label(self.master, text="Surname").grid(row=4)
         Label(self.master, text="    ").grid(row=5)
-        Label(self.master, text="Surname").grid(row=6)
+        Label(self.master, text="Date of birth").grid(row=6)
         Label(self.master, text="    ").grid(row=7)
-        Label(self.master, text="Date of birth").grid(row=8)
-        Label(self.master, text="    ").grid(row=9)
-        Label(self.master, text="Phone number").grid(row=10)
-        Label(self.master, text="    ").grid(row=1)
         Label(self.master, text="Session").grid(row=2, column=2)
         Label(self.master, text="    ").grid(row=3)
         Label(self.master, text="Date").grid(row=4,column=2)
         Label(self.master, text="    ").grid(row=5)
         Label(self.master, text="Time").grid(row=6 ,column=2)
         Label(self.master, text="    ").grid(row=7)
-        Label(self.master, text="length").grid(row=8 ,column=2)
         
-        self.customerID = Entry(self.master)
         self.firstName = Entry(self.master)
         self.surname = Entry(self.master)
         self.dob = Entry(self.master)
-        self.phoneNumber = Entry(self.master)
         self.session = Entry(self.master)
         self.date = Entry(self.master)
         self.time = Entry(self.master)
-        self.length = Entry(self.master)
 
-        self.customerID.grid(row=2, column=1)
-        self.firstName.grid(row=4, column=1)
-        self.surname.grid(row=6, column=1)
-        self.dob.grid(row=8, column=1)
-        self.phoneNumber.grid(row=10, column=1)
+        self.firstName.grid(row=2, column=1)
+        self.surname.grid(row=4, column=1)
+        self.dob.grid(row=6, column=1)
         self.session.grid(row=2, column=3)
         self.date.grid(row=4, column=3)
         self.time.grid(row=6, column=3)
-        self.length.grid(row=8, column=3)
 
-        print(self.firstName)
+        Button(self.master, text='Book', command=self.checkValue, font=("Helvetica",15, "bold italic")).grid(row=11, column=4, sticky=W, pady=4)
+        Button(self.master, text='Timetable', command=self.table, font=("Helvetica",15, "bold italic")).grid(row=12, column=4, sticky=W, pady=4)
+        Button(self.master, text='Home', command=self.goHome, font=("Helvetica",15, "bold italic")).grid(row=13, column=4, sticky=W, pady=4)
 
-
-        Button(self.master, text='Book', command=self.calculate, font=("Helvetica",15, "bold italic")).grid(row=11, column=4, sticky=W, pady=4)
-        Button(self.master, text='Home', command=self.goHome, font=("Helvetica",15, "bold italic")).grid(row=12, column=4, sticky=W, pady=4)
 
     def goHome(self):
         self.master.destroy() # close the current Member window
         self.mainwnd.update() # update the home window
         self.mainwnd.deiconify() # un-minimize the home window
-               
-    def id_generator(self,size=10, chars=string.ascii_uppercase + string.digits):
+        
+    def table(self):
+        root1=Toplevel(self.master)
+        timetable=timeTable(root1,self.master)
+
+    def closeDB(self):
+        self.c.close()
+        self.conn.close()
+
+    def insertBooking(self):
+        refNum = self.ref
+        customerID = self.customer
+        session = self.session.get()
+        date = self.date.get()
+        time = self.time.get()
+        checking = "False"
+        price = self.price
+
+        self.c.execute("INSERT INTO Booking (Ref_number, customerID, session, date, time, checking, price) VALUES(?, ?, ?, ?, ?, ?, ?)",
+                       (refNum, customerID, session, date, time, checking, price))
+        self.conn.commit()
+        
+        self.closeDB()
+
+    def id_generator(self,size=16, chars=string.ascii_uppercase + string.digits):
         self.ref=''.join(random.choice(chars) for _ in range(size))
-        insert()
+        self.insertBooking()
 
     def calculate(self):
-        self.normal = 50 # price per hour
-        self.instructor = 20 #price per hour
-
-        # If customer has a loyalty membership then he get 30% off
+        session = self.session.get()
+        cID = self.customer
         
+        normal = 50 # price per hour
+        instructor = 20 #price per hour
+        self.price = 0
+
+        self.c.execute("SELECT Membership_Type FROM Member WHERE Customer_ID = ?",
+                       (cID))
+        
+        self.status =self.c.fetchone()
+        
+        membershipType = self.status[0]
+
+        if membershipType.lower() == "standard":
+            if session.lower() == "normal":
+                self.price = normal
+            else:
+                self.price = normal + instructor
+        else:
+            if session.lower() == "normal":
+                discount = (normal * 20) / 100
+                self.price = normal - discount
+                
+            else:
+                discount = (normal + instructor * 20) / 100
+                self.price = normal + instructor - discount
+        print(self.price)
+
+        self.id_generator()
+        
+            
+    def checkValue(self):
+
+        firstName = self.firstName.get()
+        surname = self.surname.get()
+        dob = self.dob.get()
+        
+        self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+                       (firstName, surname, dob))
+        self.ID = self.c.fetchone()
 
         
-           
+        self.customer = str(self.ID[0])
+        self.calculate()  
+    
+        
+         
 def main():
     
     root=Tk()
