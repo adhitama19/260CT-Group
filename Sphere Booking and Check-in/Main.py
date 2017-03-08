@@ -257,32 +257,29 @@ class updateMember():
         self.master.geometry("1080x800+200+200")
         self.master.title("Sphere Booking and Check-in")
 
+        self.conn = sqlite3.connect('Database.db')
+        self.c = self.conn.cursor()
+
         Label(self.master, text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25)).grid(row=0,column=2)
         Label(self.master, text="    ").grid(row=1)
-        Label(self.master, text="Customer ID").grid(row=2)
+        Label(self.master, text="First Name").grid(row=2)
         Label(self.master, text="    ").grid(row=3)
-        Label(self.master, text="First Name").grid(row=4)
+        Label(self.master, text="Surname").grid(row=4)
         Label(self.master, text="    ").grid(row=5)
-        Label(self.master, text="Surname").grid(row=6)
+        Label(self.master, text="Date of birth").grid(row=6)
         Label(self.master, text="    ").grid(row=7)
-        Label(self.master, text="Date of birth").grid(row=8)
-        Label(self.master, text="    ").grid(row=9)
-        Label(self.master, text="Type").grid(row=10)
+
 
         self.e1 = Entry(self.master)
         self.e2 = Entry(self.master)
         self.e3 = Entry(self.master)
-        self.e4 = Entry(self.master)
-        self.e5 = Entry(self.master)
 
         self.e1.grid(row=2, column=1)
         self.e2.grid(row=4, column=1)
         self.e3.grid(row=6, column=1)
-        self.e4.grid(row=8, column=1)
-        self.e5.grid(row=10, column=1)
 
 
-        Button(self.master, text='Update',font=("Helvetica",15, "bold italic")).grid(row=11, column=2, sticky=W, pady=4)
+        Button(self.master, text='Update', command=self.checkValue, font=("Helvetica",15, "bold italic")).grid(row=11, column=2, sticky=W, pady=4)
         Button(self.master, text='Home', command=self.goHome, font=("Helvetica",15, "bold italic")).grid(row=12, column=2, sticky=W, pady=4)
 
     def goHome(self):
@@ -290,6 +287,44 @@ class updateMember():
         self.mainwnd.update() # update the home window
         self.mainwnd.deiconify() # un-minimize the home window
 
+    def closeDB(self):
+        self.c.close()
+        self.conn.close()
+
+    def updateMember(self):
+        customerID = self.customer
+        sessionNum = self.sessionNum
+        loyalty = "loyalty"
+
+        if sessionNum > 10:
+            self.c.execute("UPDATE Member SET Membership_Type = (?) WHERE Customer_ID = (?) ",
+                       (loyalty, customerID))
+            self.conn.commit()
+            self.closeDB()
+        else:
+            print("user does not have more than 10 sessions")
+            print(sessionNum)
+            
+        
+    def checkValue(self):
+
+        firstName = self.e1.get()
+        surname = self.e2.get()
+        dob = self.e3.get()
+        
+        self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+                       (firstName, surname, dob))
+        self.ID = self.c.fetchone()
+        self.customer = str(self.ID[0])
+
+        self.c.execute("SELECT number_of_session FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+                       (firstName, surname, dob))
+
+        session = self.c.fetchone()
+        self.sessionNum = int(session[0])
+        
+        self.updateMember()   
+        
 
 class regMember():
 
@@ -335,7 +370,8 @@ class regMember():
 
     def closeDB(self):
         self.c.close()
-        self.conn.close() 
+        self.conn.close()
+        self.goHome()
         
     def insertMember(self):
         customerID = int(self.customerID)
@@ -440,9 +476,13 @@ class Booking():
         time = self.time.get()
         checking = "False"
         price = self.price
+        sessionNumber = self.sessionNum
 
         self.c.execute("INSERT INTO Booking (Ref_number, customerID, session, date, time, checking, price) VALUES(?, ?, ?, ?, ?, ?, ?)",
                        (refNum, customerID, session, date, time, checking, price))
+        self.c.execute("INSERT INTO Customer_details (number_of_session) VALUES (?)",
+                       (sessionNumber))
+                           
         self.conn.commit()
         
         self.closeDB()
@@ -479,7 +519,6 @@ class Booking():
             else:
                 discount = (normal + instructor * 20) / 100
                 self.price = normal + instructor - discount
-        print(self.price)
 
         self.id_generator()
         
@@ -493,9 +532,15 @@ class Booking():
         self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
                        (firstName, surname, dob))
         self.ID = self.c.fetchone()
-
-        
         self.customer = str(self.ID[0])
+
+        self.c.execute("SELECT number_of_session FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+                       (firstName, surname, dob))
+
+        session = self.c.fetchone()
+        self.sessionNum = int(self.ID[0])
+        self.sessionNum +=1
+        
         self.calculate()  
     
         
