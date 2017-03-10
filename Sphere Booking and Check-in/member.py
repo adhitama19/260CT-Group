@@ -57,8 +57,8 @@ class updateMember():
         sessionNum = self.sessionNum
         loyalty = "loyalty"
 
-        if sessionNum > 10:
-            self.c.execute("UPDATE Member SET Membership_Type = (?) WHERE Customer_ID = (?) ",
+        if sessionNum > 10: # check to see if the user meets the requirements to upgrade their membership
+            self.c.execute("UPDATE Member SET Membership_Type = (?) WHERE Customer_ID = (?) ", # find the customer in the database and updates his membership status
                        (loyalty, customerID))
             self.conn.commit()
             self.closeDB()

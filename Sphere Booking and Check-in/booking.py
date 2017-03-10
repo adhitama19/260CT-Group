@@ -86,7 +86,7 @@ class Booking():
         
         self.closeDB()
 
-    def id_generator(self,size=16, chars=string.ascii_uppercase + string.digits):
+    def id_generator(self,size=16, chars=string.ascii_uppercase + string.digits): # Creates a random 16 digit value with numbers and characters 
         self.ref=''.join(random.choice(chars) for _ in range(size))
         self.insertBooking()
 
@@ -105,14 +105,14 @@ class Booking():
         
         membershipType = self.status[0]
 
-        if membershipType.lower() == "standard":
+        if membershipType.lower() == "standard": # use the customers membership to give a discount if they have loyalty membership
             if session.lower() == "normal":
                 self.price = normal
             else:
                 self.price = normal + instructor
         else:
             if session.lower() == "normal":
-                discount = (normal * 20) / 100
+                discount = (normal * 20) / 100 #gives 20% off the price since the customer has a loyalty membership
                 self.price = normal - discount
                 
             else:
@@ -129,7 +129,8 @@ class Booking():
         firstName = self.firstName.get()
         surname = self.surname.get()
         dob = self.dob.get()
-        
+
+        # Get customer ID from the data base where the customer name, surname and date of birth matches.
         self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
                        (firstName, surname, dob))
         self.ID = self.c.fetchone()
