@@ -73,12 +73,12 @@ class updateMember():
         surname = self.e2.get()
         dob = self.e3.get()
         
-        self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+        self.c.execute("SELECT CustomerID FROM Customer WHERE FirstName = ? AND surname = ? AND date_of_birth = ?",
                        (firstName, surname, dob))
         self.ID = self.c.fetchone()
         self.customer = str(self.ID[0])
 
-        self.c.execute("SELECT number_of_session FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+        self.c.execute("SELECT number_of_sessions FROM Customer WHERE FirstName = ? AND surname = ? AND date_of_birth = ?",
                        (firstName, surname, dob))
 
         session = self.c.fetchone()
@@ -159,7 +159,7 @@ class regMember():
         surname = self.MSname.get()
         dob = self.Mdob.get()
         
-        self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+        self.c.execute("SELECT CustomerID FROM Customer WHERE FirstName = ? AND surname = ? AND date_of_birth = ?",
                        (firstName, surname, dob))
         self.ID = self.c.fetchone()
         

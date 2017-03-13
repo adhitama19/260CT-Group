@@ -42,6 +42,7 @@ def checkBookingChris():
 
 
       stringx = entry_ref_num.get() #x must be string or made into string at later point
+      stringx = str(stringx)
       conn = sqlite3.connect('database.db')
 
       

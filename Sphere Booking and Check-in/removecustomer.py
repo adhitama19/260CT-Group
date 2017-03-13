@@ -42,9 +42,8 @@ def checkIfdelete():
     
 ############### SQL DATABASE RETRIEVE AND DELETE ##################################
     connection = sqlite3.connect("Database.db")
-    remove= connection.execute("DELETE FROM User_Names WHERE ID =? ", (userId))
-    sql1= connection.execute("DELETE FROM Customer_Details WHERE ID = ? ",(userId))
-    result=connection.execute("SELECT * FROM Customer_Details, User_Names")
+    sql1= connection.execute("DELETE FROM Customer WHERE CustomerID = ? ",(userId))
+    result=connection.execute("SELECT * FROM Customer")
     connection.commit()
     print("row deleted: ", connection.total_changes)
     

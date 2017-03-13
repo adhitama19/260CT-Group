@@ -5,7 +5,7 @@ prototype
 Salah Abdo
 Python 3
 '''
-from Main import *
+from home import *
 
 class timeTable():
 

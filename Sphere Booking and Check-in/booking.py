@@ -66,6 +66,7 @@ class Booking():
     def closeDB(self):
         self.c.close()
         self.conn.close()
+        self.goHome()
 
     def insertBooking(self):
         refNum = self.ref
@@ -80,7 +81,7 @@ class Booking():
         self.c.execute("INSERT INTO Booking (Ref_number, customerID, session, date, time, checking, price) VALUES(?, ?, ?, ?, ?, ?, ?)",
                        (refNum, customerID, session, date, time, checking, price))                     
         
-        self.c.execute("UPDATE Customer_details SET number_of_session = (?) WHERE ID = (?) ",
+        self.c.execute("UPDATE Customer SET number_of_sessions = (?) WHERE CustomerID = (?) ",
                        (sessionNumber, customerID))
         self.conn.commit()
         
@@ -131,12 +132,12 @@ class Booking():
         dob = self.dob.get()
 
         # Get customer ID from the data base where the customer name, surname and date of birth matches.
-        self.c.execute("SELECT ID FROM Customer_Details WHERE FORENAME = ? AND SURNAME = ? AND DOB = ?",
+        self.c.execute("SELECT CustomerID FROM Customer WHERE FirstName = ? AND surname = ? AND date_of_birth = ?",
                        (firstName, surname, dob))
         self.ID = self.c.fetchone()
         self.customer = str(self.ID[0])
 
-        self.c.execute("SELECT number_of_session FROM Customer_Details WHERE FORENAME = (?) AND SURNAME = (?) AND DOB = (?)",
+        self.c.execute("SELECT number_of_sessions FROM Customer WHERE FirstName = (?) AND surname = (?) AND date_of_birth = (?)",
                        (firstName, surname, dob))
 
         session = self.c.fetchone()

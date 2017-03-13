@@ -11,15 +11,6 @@ import random
 import sys
 from random import randint
 
-from removecustomer import *
-from registration import *
-from ManagerUpdating import *
-from SkiInstructorTimetable import *
-from SkiSlopeTimetable import *
-from managerAdding import *
-from member import *
-from booking import *
-from TimeTable import *
 from home import *
              
 def main():

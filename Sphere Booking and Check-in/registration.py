@@ -42,12 +42,12 @@ class App():
 
         #GUI Entry and Label for Insert
 
-        self.l1 = Label(frame, text = "Reference Number")
+        self.l1 = Label(frame, text = "Customer ID")
         self.l1.grid(row = 2, column = 0)
         self.idA = Entry(frame, bd = 5)
         self.idA.grid(row = 2, column = 1)
 
-        self.l2 = Label(frame, text = "Forename")
+        self.l2 = Label(frame, text = "First Name")
         self.l2.grid(row = 3, column = 0)
         self.foreName = Entry(frame, bd = 6)
         self.foreName.grid(row = 3, column = 1)
@@ -67,20 +67,15 @@ class App():
         self.customerExp = Entry(frame, bd = 9)
         self.customerExp.grid(row = 6, column = 1)
 
-        self.l6 = Label(frame, text = "Account Status")
-        self.l6.grid(row = 7, column = 0)
-        self.accountStat = Entry(frame, bd = 10)
-        self.accountStat.grid(row = 7, column = 1)
-
         self.l7 = Label(frame, text = "Number of Session")
-        self.l7.grid(row = 8, column = 0)
-        self.numberSess = Entry(frame, bd = 11)
-        self.numberSess.grid(row = 8, column = 1)
+        self.l7.grid(row = 7, column = 0)
+        self.numberSess = Entry(frame, bd = 10)
+        self.numberSess.grid(row = 7, column = 1)
 
         self.l8 = Label(frame, text = "Account Balance")
-        self.l8.grid(row = 9, column = 0)
-        self.balance = Entry(frame, bd = 12)
-        self.balance.grid(row = 9, column = 1)
+        self.l8.grid(row = 8, column = 0)
+        self.balance = Entry(frame, bd = 11)
+        self.balance.grid(row = 8, column = 1)
 
     def openDb(self):
         self.conn = sqlite3.connect('Database.db')
@@ -94,13 +89,12 @@ class App():
         surName1 = self.surName.get()
         doBirth1 = self.doBirth.get()
         customerExp1 = self.customerExp.get()
-        accountStat1 = self.accountStat.get()
         numberSess1 = int(self.numberSess.get())
         balance1 = int(self.balance.get())
 
-        self.cur.execute("INSERT INTO \
-Customer_Details(ID, FORENAME, SURNAME, DOB, CUSTOMER_EXPRIENCE, ACCOUNT_STATUS, NUMBER_OF_SESSIONS, BALANCE_OWED)\
-VALUES (?, ?, ?, ?, ? ,?, ?, ?)", (id1, foreName1, surName1, doBirth1, customerExp1, accountStat1, numberSess1, balance1))
+        self.cur.execute("INSERT INTO Customer \
+(CustomerID, FirstName, surname, date_of_birth, customer_experience, number_of_sessions, balance_owed)\
+VALUES (?, ?, ?, ?, ?, ?, ?)", (id1, foreName1, surName1, doBirth1, customerExp1,numberSess1, balance1))
 
         self.conn.commit()
 
