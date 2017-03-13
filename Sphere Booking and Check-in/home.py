@@ -6,6 +6,7 @@ Salah Abdo
 Python 3
 '''
 from Main import *
+from checkinbooking import *
 
 class Home():
 
@@ -21,7 +22,7 @@ class Home():
         self.button2=Button(self.master,text="Upgrade member",fg="black", width=20, command=self.updateMember, height=3,font=("Helvetica",15, "bold italic"))
         self.button3=Button(self.master,text="Register member",fg="black", width=20, command=self.regMember, height=3,font=("Helvetica",15, "bold italic"))
         self.button4=Button(self.master,text="Make new booking",fg="black", width=20, command=self.gotoBooking, height=3,font=("Helvetica",15, "bold italic"))
-        self.button5=Button(self.master,text="Check booking",fg="black", width=20, height=3,font=("Helvetica",15, "bold italic"))
+        self.button5=Button(self.master,text="Check booking",fg="black", width=20, command=self.checkBooking, height=3,font=("Helvetica",15, "bold italic"))
         self.button6=Button(self.master,text="time table",fg="black", width=20,command=self.table, height=3,font=("Helvetica",15, "bold italic"))
         self.button7=Button(self.master,text="Admin",fg="black", width=20, command=self.adminCommand, height=3,font=("Helvetica",15, "bold italic"))
         # Each button links to our individual function
@@ -75,6 +76,12 @@ class Home():
         
         self.master.withdraw()
         run()
+        
+    def checkBooking(self):
+
+        self.master.withdraw()
+        checkBookingChris()
+        
         
     # Each of these functions are linked to each of our functionalities
     

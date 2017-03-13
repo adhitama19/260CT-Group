@@ -2,7 +2,7 @@ import tkinter as tk
 import sys
 import sqlite3
 
-def checkbooking(): 
+def checkBookingChris(): 
    window = tk.Tk()
    window.title('Please enter your reference number')
    window.geometry('450x300')
