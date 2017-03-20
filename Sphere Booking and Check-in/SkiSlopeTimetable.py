@@ -60,6 +60,7 @@ def printTimeTable(infile):
     import tkinter as tk #Savers new call to the module requiring full name
     window = tk.Tk() #makes the window
     window.resizable (0, 0) #disables resizing
+    window.title("")
     text= tk.Label(window, text= infile, justify= tk.LEFT, font=("Calibri", 12)) #makes text
     text.pack() #puts text in the window 
     window.mainloop() #runs the window 
