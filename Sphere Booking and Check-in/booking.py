@@ -7,17 +7,23 @@ Python 3
 
 This code is for the booking. 
 '''
-from Main import *
-from TimeTable import *  
 
-class Booking():
+from Main import *
+from TimeTable import *
+from home import *
+
+class Booking(object):
 
     def __init__(self,master,mainwnd):
 
         self.mainwnd= mainwnd # store the 'self.master` of the main window
         self.master = master
+        self.ref = "  "
+        self.price = 0
+        self.date = "  "
+        self.time = "  "
 
-        self.master.geometry("1080x800+200+200")
+        self.master.geometry("1080x800")
         self.master.title("Sphere Booking and Check-in")
 
         self.conn = sqlite3.connect('Database.db') # connects to the database
@@ -59,7 +65,7 @@ class Booking():
         self.time.grid(row=6, column=4)
         # positioning of the entry 
 
-        Button(self.master, text='Book', command=self.bookingConfirmation, font=("Helvetica",15, "bold italic")).grid(row=11, column=4, sticky=W, pady=4)
+        Button(self.master, text='Book', command=self.confirmation, font=("Helvetica",15, "bold italic")).grid(row=11, column=4, sticky=W, pady=4)
         Button(self.master, text='Timetable', command=self.table, font=("Helvetica",15, "bold italic")).grid(row=12, column=4, sticky=W, pady=4)
         Button(self.master, text='Home', command=self.goHome, font=("Helvetica",15, "bold italic")).grid(row=13, column=4, sticky=W, pady=4)
 
@@ -82,26 +88,25 @@ class Booking():
         
     def bookingConfirmation(self):
         root1=Toplevel(self.master)
-        self.master.withdraw()
-        bookingcon=BookingConfirmation(root1,self.master)
+        bookingcon=BookingConfirmation(root1,self.master,self.ref,self.date,self.time,self.price)
         
     def closeDB(self): # closes the database
         self.c.close()
         self.conn.close()
-        self.goHome()
+        self.bookingConfirmation()
 
     def insertBooking(self):
         refNum = self.ref
         customerID = self.customer
         session = self.session.get()
-        date = self.date.get()
-        time = self.time.get()
+        self.date = self.date.get()
+        self.time = self.time.get()
         checking = "False"
         price = self.price
         sessionNumber = self.sessionNum
 
         self.c.execute("INSERT INTO Booking (Ref_number, customerID, session, date, time, checking, price) VALUES(?, ?, ?, ?, ?, ?, ?)", # stores all the data into booking table 
-                       (refNum, customerID, session, date, time, checking, price))                     
+                       (refNum, customerID, session, self.date, self.time, checking, price))                     
         
         self.c.execute("UPDATE Customer SET number_of_sessions = (?) WHERE CustomerID = (?) ",
                        (sessionNumber, customerID))
@@ -142,8 +147,6 @@ class Booking():
                 discount = (normal + instructor * 20) / 100
                 self.price = normal + instructor - discount
 
-        print(self.price)
-
         self.id_generator()
         
             
@@ -160,7 +163,6 @@ class Booking():
         session = self.c.fetchone() 
         self.sessionNum = int(session[0])
         self.sessionNum +=1
-        print(self.sessionNum)
         
         self.calculate()
         
@@ -188,63 +190,60 @@ class Booking():
         else:
             self.noCustomer()
 
-class BookingConfirmation():
-    
-     def __init__(self,master,mainwnd):
+
+class BookingConfirmation(object):
+
+    def __init__(self,master,mainwnd,ref,date,time,price):
 
         self.mainwnd= mainwnd # store the 'self.master` of the main window
         self.master = master
+        
+        self.bookingRef = ref # variables passed between classes
+        self.date = date
+        self.time = time
+        self.price = price
+        
 
-        self.master.geometry("500x475+200+200") # size of the window
+        self.master.geometry("500x400") # size of the window
         self.master.resizable (0, 0) #disables resizing
 
         Label(self.master, text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25)).grid(row=0,column=2)
 
-        self.button1=Button(self.master,text="Home",fg="black", width=20, height=3,font=("Helvetica",15, "bold italic")).grid(row=6, column=2)
-
-        def home(self):
-
-            root1=Toplevel(self.master)
-            self.master.withdraw()
-            home=Home(root1,self.master)
+        Label(self.master, text="The booking has been successful.\nBooking reference: " + str(self.bookingRef) + "\nDate: " + str(self.date) + "\nTime: " + str(self.time) + "\nPrice: £" + str(self.price),fg="red",font=("Helvetica",14)).grid(row=2,column=2)
+        Label(self.master, text="   ").grid(row=3,column=2)
+        
 
 
 class CustomerNotFound():
-    
-     def __init__(self,master,mainwnd):
 
+    def __init__(self,master,mainwnd):
+        
         self.mainwnd= mainwnd # store the 'self.master` of the main window
         self.master = master
-
-        self.master.geometry("500x475+200+200") # size of the window
+        
+        self.master.geometry("500x400") # size of the window
         self.master.resizable (0, 0) #disables resizing
         self.master.title("Sphere Booking and Check-in")
-
-        Label(self.master, text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25)).grid(row=0,column=2)
-
-        Label(self.master, text="The customer does not exist, either register the customer\nor try the booking again.",fg="red",font=("Helvetica",14)).grid(row=2,column=2)
-
-        self.button1=Button(self.master,text="Register new customer",fg="black", width=20, command=self.register, height=3,font=("Helvetica",15, "bold italic")).grid(row=4, column=2)
-        self.button1=Button(self.master,text="Booking",fg="black", width=20, command=self.gotoBooking, height=3,font=("Helvetica",15, "bold italic")).grid(row=5, column=2)
-        self.button1=Button(self.master,text="Home",fg="black", command=self.Home, width=20, height=3,font=("Helvetica",15, "bold italic")).grid(row=6, column=2)
-
-        def gotoBooking(self):
-
-            root1=Toplevel(self.master)
-            self.master.withdraw()
-            booking=Booking(root1,self.master)
-            
-        def register(self):
         
-            self.master.withdraw()
-            run()
+        Label(self.master, text="Sphere Booking and Check-in",fg="black",font=("Helvetica",25)).grid(row=0,column=2)
+        
+        Label(self.master, text="The customer does not exist, either register the customer\nor try the booking again.",fg="red",font=("Helvetica",14)).grid(row=2,column=2)
+        
+        self.button1=Button(self.master,text="Register new customer", command=self.register, fg="black", width=20, height=3,font=("Helvetica",15, "bold italic")).grid(row=4, column=2)
+        self.button1=Button(self.master,text="Booking", command=self.gotoBooking, fg="black", width=20, height=3,font=("Helvetica",15, "bold italic")).grid(row=5, column=2)
+
+        
+    def gotoBooking(self):
+
+        root1=Toplevel(self.master)
+        self.master.withdraw()
+        booking=Booking(root1,self.master)
             
-        def home(self):
-
-            root2=Toplevel(self.master)
-            self.master.withdraw()
-            home=Home(root2,self.master)
-
+    def register(self):
+        
+        self.master.withdraw()
+        run()
+            
 
     
 
