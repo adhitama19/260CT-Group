@@ -14,7 +14,7 @@ class App():
         
         self.foreName = StringVar()
         self.surName = StringVar()
-        self.doBirth = StringVar()
+        self.doBirth = StringVar(frame, value="DD/MM/YYYY")
         self.customerExp = StringVar()
         self.accountStat = StringVar()
         self.numberSess = StringVar()
@@ -56,7 +56,7 @@ class App():
 
         self.l4 = Label(frame, text = "Date of Birth")
         self.l4.grid(row = 5, column = 0)
-        self.doBirth = Entry(frame, bd = 8)
+        self.doBirth = Entry(frame, textvariable=self.doBirth,bd = 8)
         self.doBirth.grid(row = 5, column = 1)
 
         self.l5 = Label(frame, text = "Customer Experience")
