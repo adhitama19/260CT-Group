@@ -12,13 +12,15 @@ class App():
         frame.pack()
 
         
+        # Set variable and variable type
+        
         self.foreName = StringVar()
         self.surName = StringVar()
-        self.doBirth = StringVar(frame, value="DD/MM/YYYY")
+        self.doBirth = StringVar(frame, value="DD/MM/YYYY")    #Set default value format for date
         self.customerExp = StringVar()
         self.accountStat = StringVar()
         self.numberSess = StringVar()
-        self.balance = StringVar(frame, value="0")
+        self.balance = StringVar(frame, value="0")             #Set default balance to 0
 
         
         self.foreName1 = StringVar()
@@ -29,12 +31,13 @@ class App():
         self.numberSess1 = StringVar()
         self.balance1 = StringVar()
 
-
-        self.conn = sqlite3.connect('Database.db')
+        # Open database connection
+        
+        self.conn = sqlite3.connect('Database.db')            
         self.cur = self.conn.cursor()
         print('Database Opened Successfully')
 
-        #GUI Button
+        # GUI Button
         
         self.button2 = Button (frame, text = 'Insert Data', command = self.insertDb)
         self.button2.grid(row = 10, column = 1)
@@ -42,7 +45,7 @@ class App():
         self.button3 = Button(frame, text='Quit', command=self.quitDB)
         self.button3.grid(row=10, column=2)
 
-        #GUI Entry and Label for Insert
+        #GUI Entry and Label for user input
 
         self.l2 = Label(frame, text = "First Name")
         self.l2.grid(row = 3, column = 0)
@@ -61,7 +64,7 @@ class App():
 
         self.l5 = Label(frame, text = "Customer Experience")
         self.l5.grid(row = 6, column = 0)
-        self.cb1 = Checkbutton(frame, text="Novice", variable = self.customerExp, onvalue = "Novice", offvalue = "None",bd = 9)
+        self.cb1 = Checkbutton(frame, text="Novice", variable = self.customerExp, onvalue = "Novice", offvalue = "None",bd = 9)     # Checkbutton user input
         self.cb2 = Checkbutton(frame, text="Member", variable = self.customerExp, onvalue = "Member", offvalue = "None",bd = 10)
         self.cb1.grid(row = 6, column = 1)
         self.cb2.grid(row = 7, column = 1)
@@ -78,7 +81,7 @@ class App():
         self.balance.grid(row = 9, column = 1)
 
 
-    def insertDb(self):
+    def insertDb(self):                 # Function for inserting user input to the database
         
         
         foreName1 = self.foreName.get() 
@@ -88,6 +91,8 @@ class App():
         numberSess1 = int(self.numberSess.get())
         balance1 = int(self.balance.get())
 
+        # SQL Function for inserting input to database
+        
         self.cur.execute("INSERT INTO Customer \
 (CustomerID, FirstName, surname, date_of_birth, customer_experience, number_of_sessions, balance_owed)\
 VALUES (NULL, ?, ?, ?, ?, ?, ?)", (foreName1, surName1, doBirth1, customerExp1, numberSess1, balance1))
@@ -96,7 +101,7 @@ VALUES (NULL, ?, ?, ?, ?, ?, ?)", (foreName1, surName1, doBirth1, customerExp1, 
         print("Data has been successfully entered")
 
 
-    def quitDB(self):
+    def quitDB(self):                   # Function for user to quit program
         root.quit()
         self.conn.close()
         print("Database is now Closed")
