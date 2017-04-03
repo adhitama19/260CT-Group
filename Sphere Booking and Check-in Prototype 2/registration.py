@@ -1,6 +1,7 @@
 import tkinter
 import sqlite3
 from tkinter import *
+from tkinter import ttk
 
 
 class App():
@@ -10,42 +11,41 @@ class App():
         frame = Frame(master)
         frame.pack()
 
-        idA = StringVar()
-        foreName = StringVar()
-        surName = StringVar()
-        doBirth = StringVar()
-        customerExp = StringVar()
-        accountStat = StringVar()
-        numberSess = StringVar()
-        balance = StringVar()
-
-        id1 = StringVar()
-        foreName1 = StringVar()
-        surName1 = StringVar()
-        doBirth1 = StringVar()
-        customerExp1 = StringVar()
-        accountStat1 = StringVar()
-        numberSess1 = StringVar()
-        balance1 = StringVar()
-
-        #GUI Button
         
-        self.button = Button (frame, text = 'Open Database', fg = 'red', command = self.openDb)
-        self.button.grid(row = 0, column = 0)
+        # Set variable and variable type
+        
+        self.foreName = StringVar()
+        self.surName = StringVar()
+        self.doBirth = StringVar(frame, value="DD/MM/YYYY")    #Set default value format for date
+        self.customerExp = StringVar()
+        self.accountStat = StringVar()
+        self.numberSess = StringVar()
+        self.balance = StringVar(frame, value="0")             #Set default balance to 0
 
+        
+        self.foreName1 = StringVar()
+        self.surName1 = StringVar()
+        self.doBirth1 = StringVar()
+        self.customerExp1 = StringVar()
+        self.accountStat1 = StringVar()
+        self.numberSess1 = StringVar()
+        self.balance1 = StringVar()
+
+        # Open database connection
+        
+        self.conn = sqlite3.connect('Database.db')            
+        self.cur = self.conn.cursor()
+        print('Database Opened Successfully')
+
+        # GUI Button
+        
         self.button2 = Button (frame, text = 'Insert Data', command = self.insertDb)
-        self.button2.grid(row = 0, column = 1)
+        self.button2.grid(row = 10, column = 1)
 
-        self.button3 = Button (frame, text = 'Close Database', command = self.closeDB)
-        self.button3.grid(row = 0, column = 2)
+        self.button3 = Button(frame, text='Quit', command=self.quitDB)
+        self.button3.grid(row=10, column=2)
 
-
-        #GUI Entry and Label for Insert
-
-        self.l1 = Label(frame, text = "Customer ID")
-        self.l1.grid(row = 2, column = 0)
-        self.idA = Entry(frame, bd = 5)
-        self.idA.grid(row = 2, column = 1)
+        #GUI Entry and Label for user input
 
         self.l2 = Label(frame, text = "First Name")
         self.l2.grid(row = 3, column = 0)
@@ -59,32 +59,31 @@ class App():
 
         self.l4 = Label(frame, text = "Date of Birth")
         self.l4.grid(row = 5, column = 0)
-        self.doBirth = Entry(frame, bd = 8)
+        self.doBirth = Entry(frame, textvariable=self.doBirth,bd = 8)
         self.doBirth.grid(row = 5, column = 1)
 
         self.l5 = Label(frame, text = "Customer Experience")
         self.l5.grid(row = 6, column = 0)
-        self.customerExp = Entry(frame, bd = 9)
-        self.customerExp.grid(row = 6, column = 1)
+        self.cb1 = Checkbutton(frame, text="Novice", variable = self.customerExp, onvalue = "Novice", offvalue = "None",bd = 9)     # Checkbutton user input
+        self.cb2 = Checkbutton(frame, text="Member", variable = self.customerExp, onvalue = "Member", offvalue = "None",bd = 10)
+        self.cb1.grid(row = 6, column = 1)
+        self.cb2.grid(row = 7, column = 1)
+        
 
         self.l7 = Label(frame, text = "Number of Session")
-        self.l7.grid(row = 7, column = 0)
-        self.numberSess = Entry(frame, bd = 10)
-        self.numberSess.grid(row = 7, column = 1)
+        self.l7.grid(row = 8, column = 0)
+        self.numberSess = Entry(frame, bd = 11)
+        self.numberSess.grid(row = 8, column = 1)
 
         self.l8 = Label(frame, text = "Account Balance")
-        self.l8.grid(row = 8, column = 0)
-        self.balance = Entry(frame, bd = 11)
-        self.balance.grid(row = 8, column = 1)
+        self.l8.grid(row = 9, column = 0)
+        self.balance = Entry(frame, textvariable=self.balance,bd = 12)
+        self.balance.grid(row = 9, column = 1)
 
-    def openDb(self):
-        self.conn = sqlite3.connect('Database.db')
-        self.cur = self.conn.cursor()
-        print('Database Opened Successfully')
 
-    def insertDb(self):
+    def insertDb(self):                 # Function for inserting user input to the database
         
-        id1 = int(self.idA.get())
+        
         foreName1 = self.foreName.get() 
         surName1 = self.surName.get()
         doBirth1 = self.doBirth.get()
@@ -92,33 +91,31 @@ class App():
         numberSess1 = int(self.numberSess.get())
         balance1 = int(self.balance.get())
 
+        # SQL Function for inserting input to database
+        
         self.cur.execute("INSERT INTO Customer \
 (CustomerID, FirstName, surname, date_of_birth, customer_experience, number_of_sessions, balance_owed)\
-VALUES (?, ?, ?, ?, ?, ?, ?)", (id1, foreName1, surName1, doBirth1, customerExp1,numberSess1, balance1))
+VALUES (NULL, ?, ?, ?, ?, ?, ?)", (foreName1, surName1, doBirth1, customerExp1, numberSess1, balance1))
 
         self.conn.commit()
+        print("Data has been successfully entered")
 
-    def closeDB(self):
+
+    def quitDB(self):                   # Function for user to quit program
+        root.quit()
         self.conn.close()
         print("Database is now Closed")
 
-        
 
-def run ():
+
+
+        
+def run():
     root = tkinter.Tk()
     root.title("Sphere Registration Table")
     root.geometry('700x400')
 
     app = App(root)
     root.mainloop()
-
-
-
-
-        
-
-    
-        
-
 
 
