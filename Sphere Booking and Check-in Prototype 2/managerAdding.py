@@ -1,5 +1,6 @@
 import sys
 import sqlite3 as sql
+from random import randint
 from tkinter import *
 
 def ManagerAdd():
@@ -37,7 +38,7 @@ def ManagerAdd():
         Add.grid(row=5, column=0, sticky=W)
         roots.mainloop()
 def AddF():
-        userInput1 = IDb.get()
+        Input = randint(0,9999)
         userInput2 = forenameB.get()
         userInput3 = surnameB.get()
         userInput4 = positionB.get()
