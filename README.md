@@ -40,7 +40,6 @@ mentioned above, which would help them improve the running of their business.
 
 *Please note that you may make assumptions on the above case study where necessary
 
-
 Group Members:
 •	Salah Abdo
 •	Sam Kelly
@@ -49,17 +48,16 @@ Group Members:
 •	Adhitama Budi
 •	Reece Holness
 
-
 Functionalities:
-Booking – Salah
-Registration – Adhitama
-Viewing Booking – Zehua
-Time Table – Sam
-Manager deleting – Reece
-Manager Adding – Martin
+Booking – Salah,
+Registration – Adhitama,
+Viewing Booking – Zehua,
+Time Table – Sam,
+Manager deleting – Reece,
+Manager Adding – Martin,
 Manager updating - Adhitama
 
 Extra:
-Membership- Salah
+Membership- Salah,
 Main Menu - Salah
 
