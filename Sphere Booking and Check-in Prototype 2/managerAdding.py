@@ -41,7 +41,7 @@ def AddF():
         Input = randint(0,9999)
         userInput2 = forenameB.get()
         userInput3 = surnameB.get()
-        userInput4 = positionB.get()
+        userInput4 = select.get()
         try:
                 con = sql.connect(sqliteFile)
                 cur = con.cursor()
